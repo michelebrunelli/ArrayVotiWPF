@@ -1,0 +1,42 @@
+﻿<Window x:Class="ArrayVotiWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Menu HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="517">
+            <MenuItem x:Name="MenuItem1" Header="Nuovo"/>
+            <MenuItem x:Name="MenuItem2" Header="Aiuto"/>
+        </Menu>
+        <Grid HorizontalAlignment="Left" Height="26" Margin="0,26,0,0" VerticalAlignment="Top" Width="517">
+            <Button x:Name="UxInserisciVotoButton" Content="Inserisci Voto" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="114" Click="UxInserisciVotoButton_Click"/>
+            <ComboBox x:Name="UxTipoComboBox" HorizontalAlignment="Left" Height="26" Margin="114,0,0,0" VerticalAlignment="Top" Width="119"/>
+            <TextBox x:Name="UxVotoTextBox" HorizontalAlignment="Left" Height="26" Margin="233,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153"/>
+            <ComboBox x:Name="UxMateriaComboBox" HorizontalAlignment="Left" Height="26" Margin="386,0,0,0" VerticalAlignment="Top" Width="131"/>
+        </Grid>
+        <StatusBar HorizontalAlignment="Left" Height="32" Margin="1,288,0,0" VerticalAlignment="Top" Width="516">
+            <Label Content="Media di: " Height="27" Width="104"/>
+            <ComboBox x:Name="UxMediaComboBox" Height="22" Width="161"/>
+            <TextBox x:Name="MediaTextBox" Height="22" TextWrapping="Wrap" Width="123"/>
+            <Button x:Name="BottoneMedia" Content="Visualizza" Height="22" Width="95" Click="BottoneMedia_Click"/>
+        </StatusBar>
+        <ListView x:Name="UxDatiListView" HorizontalAlignment="Left" Height="236" Margin="1,52,0,0" VerticalAlignment="Top" Width="516">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="120" DisplayMemberBinding="{Binding Valore}" >
+                        <GridViewColumnHeader Tag="Voto" Click="UxVotoHeader_Click">Voto</GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn Width="120" DisplayMemberBinding="{Binding Materia}" >
+                        <GridViewColumnHeader Tag="Materia" Click="UxMateriaHeader_Click">Materia</GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding Tipo}">
+                        <GridViewColumnHeader Tag="Tipo" Click="UxTipoHeader_Click">Tipo</GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn Width="200" DisplayMemberBinding="{Binding Data}">
+                        <GridViewColumnHeader Tag="Data" Click="UxDataHeader_Click">Data</GridViewColumnHeader>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>
