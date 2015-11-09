@@ -15,7 +15,7 @@
         </Grid>
         <StatusBar HorizontalAlignment="Left" Height="32" Margin="1,288,0,0" VerticalAlignment="Top" Width="516">
             <Label Content="Media di: " Height="27" Width="104"/>
-            <ComboBox x:Name="UxMediaComboBox" Height="22" Width="161"/>
+            <ComboBox x:Name="UxMediaComboBox" Height="22" Width="161" SelectionChanged="UxMediaComboBox_SelectionChanged"/>
             <TextBox x:Name="MediaTextBox" Height="22" TextWrapping="Wrap" Width="123"/>
             <Button x:Name="BottoneMedia" Content="Visualizza" Height="22" Width="95" Click="BottoneMedia_Click"/>
         </StatusBar>

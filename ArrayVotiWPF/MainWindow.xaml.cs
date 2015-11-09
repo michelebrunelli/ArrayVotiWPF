@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GestioneVoti;
+using System.IO;
 
 namespace ArrayVotiWPF
 {
@@ -27,12 +28,10 @@ namespace ArrayVotiWPF
         public MainWindow()
         {
             InitializeComponent();
-            //uxTipoComboBox.Items.Clear(); 
-            //foreach (var tipo in Enum.GetNames(typeof(TipoVoto)))
-            //{
-            //    uxTipoComboBox.Items.Add(tipo);
+            if (File.Exists("dati.csv"))
+                File.Delete("dati.csv");
 
-            //}
+
             UxTipoComboBox.ItemsSource = Enum.GetValues(typeof(TipoVoto)).Cast<TipoVoto>();
             UxMediaComboBox.ItemsSource = Enum.GetValues(typeof(Materia)).Cast<Materia>();
             UxMateriaComboBox.ItemsSource = Enum.GetValues(typeof(Materia)).Cast<Materia>();
@@ -70,6 +69,7 @@ namespace ArrayVotiWPF
             float voto;
             float.TryParse(UxVotoTextBox.Text, out voto);
             Voti.InserisciVoto((Materia)UxMateriaComboBox.SelectedItem, (TipoVoto)UxTipoComboBox.SelectedItem, voto, DateTime.Now);
+            File.AppendAllText("dati.csv", Convert.ToString((Materia)UxMateriaComboBox.SelectedItem) + ";" + Convert.ToString((TipoVoto)UxTipoComboBox.SelectedItem) + ";" + Convert.ToString(voto) + ";" + Convert.ToString(DateTime.Now) + "\n");
             Voto[] voti = this.Voti.DammiIVoti();
             UxDatiListView.ItemsSource = null;
             UxDatiListView.ItemsSource = voti;
@@ -133,6 +133,11 @@ namespace ArrayVotiWPF
         }
 
         private void UxDatiListView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void UxMediaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
