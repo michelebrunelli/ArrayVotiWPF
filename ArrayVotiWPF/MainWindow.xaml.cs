@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GestioneVoti;
 using System.IO;
+using System.Threading;
 
 namespace ArrayVotiWPF
 {
@@ -28,27 +29,29 @@ namespace ArrayVotiWPF
         public MainWindow()
         {
             InitializeComponent();
-            if (File.Exists("dati.csv"))
-                File.Delete("dati.csv");
-
-
             UxTipoComboBox.ItemsSource = Enum.GetValues(typeof(TipoVoto)).Cast<TipoVoto>();
             UxMediaComboBox.ItemsSource = Enum.GetValues(typeof(Materia)).Cast<Materia>();
             UxMateriaComboBox.ItemsSource = Enum.GetValues(typeof(Materia)).Cast<Materia>();
-
-
-
             Voti = new Voti();
-            UxDatiListView.ItemsSource = Voti.DammiIVoti();
-            //var items = new Voto[3];
-            //            items[0] = new Voto(TipoVoto.Orale, 5, DateTime.Now );
-            //            items[1] = new Voto(TipoVoto.Orale, 6, DateTime.Now );
-            //            items[2] = new Voto(TipoVoto.Scritto, 7, DateTime.Now );
-            //items = this.Voti.DammiIVoti();
-            //            UxDatiListView.ItemsSource = items;
-
+            UxDatiListView.ItemsSource = null;
+            UxDatiListView.ItemsSource = ReadCSV();
         }
 
+        public IEnumerable<Voto> ReadCSV()
+        {
+            if (File.Exists("dati.csv"))
+            {
+                string[] lines = File.ReadAllLines("dati.csv");
+                return lines.Select(line => 
+                {
+                    string[] data = line.Split(';');
+                    return new Voto((Materia)Enum.Parse(typeof(Materia), data[0]), (TipoVoto)Enum.Parse(typeof(TipoVoto), data[1]), Convert.ToInt32(data[2]), Convert.ToDateTime(data[3]));
+                });
+            }
+            else
+                File.Create("dati.csv");
+            return null;
+        }
         private void VisualizzaVoti(Voti voti)
         {
 

@@ -32,7 +32,7 @@ namespace GestioneVoti
 
     }
 
-    public class Voto
+    public class Voto : IComparable
     {
         public float Valore { get; set; }
         public TipoVoto Tipo { get; set; }
@@ -46,6 +46,11 @@ namespace GestioneVoti
             Data = data;
             Materia = materia;
         }
+
+        int IComparable.CompareTo(object obj)
+        {
+            throw new NotImplementedException();
+        }
     }
     public class Voti
     {
@@ -53,10 +58,9 @@ namespace GestioneVoti
         private readonly Voto[] _voti;
         private int _dimensione = 0;
 
-        public Voti()
-            : this(50)
+        public Voti() : this(50)
         {
-            Popola();
+            
         }
 
         public Voti(int dimensioneMassima)
@@ -65,27 +69,11 @@ namespace GestioneVoti
             _voti = new Voto[DimensioneMassima];
             _dimensione = 0;
         }
-        //public string[] DammiIVoti()
-        //{
-        //    string[] voti = new string[_dimensione];
-        //    for (var i = 0; i < _dimensione; i++)
-        //        voti[i] = _voti[i].Valore.ToString("F1",CultureInfo.CurrentCulture);
-        //    return voti;
-        //}
 
         public Voto[] DammiIVoti()
         {
             return _voti;
         }
-
-        private void Popola()
-        {
-            _voti[0] = new Voto(0, TipoVoto.Scritto, 5, DateTime.Parse("21/9/2015"));
-            _voti[1] = new Voto(0, TipoVoto.Pratico, 4, DateTime.Parse("18/09/2015"));
-            _voti[2] = new Voto(0, TipoVoto.Orale, 7, DateTime.Parse("16/09/2015"));
-            _dimensione = 3;
-        }
-
         public Voti InserisciVoto(Materia materia, TipoVoto tipo, float voto, DateTime dataora)
         {
             if (_dimensione <= DimensioneMassima)
